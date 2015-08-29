@@ -162,13 +162,14 @@ impl ShaderValidator {
     }
 
     pub fn compile_and_translate(&self, strings: &[&[u8]]) -> Result<String, &'static str> {
-        let options = SH_VALIDATE | SH_OBJECT_CODE | SH_INTERMEDIATE_TREE |
+        let options = SH_VALIDATE | SH_OBJECT_CODE |
                       SH_EMULATE_BUILT_IN_FUNCTIONS | // To workaround drivers
                       SH_TIMING_RESTRICTIONS |
                       SH_CLAMP_INDIRECT_ARRAY_BOUNDS |
                       SH_INIT_GL_POSITION |
                       SH_ENFORCE_PACKING_RESTRICTIONS |
                       SH_LIMIT_CALL_STACK_DEPTH;
+
         try!(self.compile(strings, options));
         Ok(self.object_code())
     }
