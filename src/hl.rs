@@ -140,7 +140,7 @@ impl ShaderValidator {
     pub fn compile(&self, strings: &[&[u8]], options: i32) -> Result<(), &'static str> {
         if unsafe { GLSLangCompile(self.handle,
                                    strings.as_ptr() as *const *const libc::c_char,
-                                   strings.len() as u64,
+                                   strings.len() as libc::size_t,
                                    options) } == 0 {
             return Err("Couldn't compile shader")
         }
