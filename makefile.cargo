@@ -106,13 +106,18 @@ GLSLANG_CPP_SRC = \
 
 CXXFLAGS += \
 	-std=gnu++11 \
-	-fPIC \
 	-DANGLE_TRANSLATOR_STATIC \
 	-Iinclude \
 	-Isrc \
 	-O3 \
 	-DCOMPONENT_BUILD \
 	$(NULL)
+
+ifeq ("$(MSYSTEM)","")
+CXXFLAGS += -fPIC
+else
+OUT_DIR := $(shell cygpath "$(OUT_DIR)")
+endif
 
 ALL_CPP_SRC = $(GLSLANG_CPP_SRC)
 ALL_OBJS = $(ALL_CPP_SRC:%.cpp=$(OUT_DIR)/%.o)
